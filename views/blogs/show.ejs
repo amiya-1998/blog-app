@@ -1,0 +1,59 @@
+<% include ../partials/header.ejs %>
+
+<div class="ui main text container segment">
+  <div class="ui huge header centered"><%= blog.title %></div>
+  <div class="ui top attached">
+    <div class="item">
+      <img src="<%= blog.image %>" class="ui centered rounded image">
+      <div class="content">
+        <span>Created on <%= blog.created.toDateString() %></span>
+      </div>
+      <hr>
+      <div class="description">
+        <p><%- blog.body %></p>
+      </div>
+      <br>
+      <% if(currentUser){ %>
+        <a href="/blogs/<%= blog._id %>/edit" class="ui orange basic button">EDIT</a>
+        <form action="/blogs/<%= blog._id %>?_method=DELETE" method="post" id="delete">
+          <button class="ui red basic button">DELETE</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+</div>
+<div class="ui text container segment">
+  <div class="ui grid">
+    <div class="row">
+      <div class="left floated seven wide column">
+        <div class="ui huge header centered left floated">COMMENTS</div>
+      </div>
+      <% if(currentUser){ %>
+        <div class="right floated seven wide column">
+          <a href="/blogs/<%= blog._id %>/comments/new" class="ui black right floated button">ADD NEW COMMENT</a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+  <hr>
+  <% if(blog.comments.length === 0){ %>
+    <div class="ui huge centered">
+      No Comments Posted on this thread
+    </div>
+  <% } else { %>
+    <div class="ui internally celled grid">
+      <% blog.comments.forEach(function(comment){ %>
+      <div class="row">
+        <div class="three wide column">
+          <strong><%= comment.author %></strong> -
+        </div>
+        <div class="thirteen wide column">
+          <p><%= comment.text %></p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<% include ../partials/footer.ejs %>

@@ -6,13 +6,24 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Blog</title>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.2/semantic.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
 </head>
 <body>
   <div class="ui fixed inverted menu">
     <div class="ui container">
-      <div class="header item"><i class="code icon"></i>Blog Site</div>
-      <a href="/" class="item">Home</a>
-      <a href="/blogs/new" class="item">New Post</a>
+      <a href="/"><div class="header item"><i class="code icon"></i>Blog App</div></a>
+      <% if(!currentUser){ %>
+        <a href="/login" class="item">Login</a>
+        <a href="/register" class="item">SignUp</a>
+      <% } else { %>
+        <a href="/logout" class="item">Logout</a>
+        <a href="/blogs/new" class="item">New Post</a>
+      <% } %>
+      <div class="right menu">
+        <% if(!!currentUser){ %>
+          <div class="item">Signed In as <%= currentUser.username %></div>
+          <% } %>
+      </div>
     </div>
   </div>
