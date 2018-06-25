@@ -17,3 +17,15 @@ i.icon {
 .ui.items>.item>.image>img {
   height: 148px;
 }
+
+#btn a {
+  width: 100%;
+}
+
+#ce {
+  margin-bottom: 1em;
+}
+
+#de input {
+  width: 100%;
+}

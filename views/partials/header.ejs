@@ -22,7 +22,7 @@
       <% } %>
       <div class="right menu">
         <% if(!!currentUser){ %>
-          <div class="item">Signed In as <%= currentUser.username %></div>
+          <a href="/profile" class="item">Signed In as <%= currentUser.username %></a>
           <% } %>
       </div>
     </div>

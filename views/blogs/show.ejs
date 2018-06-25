@@ -6,14 +6,14 @@
     <div class="item">
       <img src="<%= blog.image %>" class="ui centered rounded image">
       <div class="content">
-        <span>Created on <%= blog.created.toDateString() %></span>
+        <span>Submitted by <Strong><em><%= blog.author.username %></em></Strong> on <%= blog.created.toDateString() %></span>
       </div>
       <hr>
       <div class="description">
         <p><%- blog.body %></p>
       </div>
       <br>
-      <% if(currentUser){ %>
+      <% if(currentUser && blog.author.id.equals(currentUser._id)){ %>
         <a href="/blogs/<%= blog._id %>/edit" class="ui orange basic button">EDIT</a>
         <form action="/blogs/<%= blog._id %>?_method=DELETE" method="post" id="delete">
           <button class="ui red basic button">DELETE</button>
@@ -44,12 +44,27 @@
     <div class="ui internally celled grid">
       <% blog.comments.forEach(function(comment){ %>
       <div class="row">
-        <div class="three wide column">
-          <strong><%= comment.author %></strong> -
-        </div>
-        <div class="thirteen wide column">
-          <p><%= comment.text %></p>
-        </div>
+        <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+          <div class="four wide column">
+            <strong><%= comment.author.username %></strong> -
+          </div>
+          <div class="nine wide column">
+            <p><%= comment.text %></p>
+          </div>
+          <div class="three wide column" id="btn">
+            <a href="/blogs/<%= blog._id %>/comments/<%= comment._id %>/edit" class="ui orange mini button" id="ce">EDIT</a>
+            <form action="/blogs/<%= blog._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" id="de">
+              <input type="Submit" value="DELETE" class="ui red mini button">
+            </form>
+          </div>
+        <% } else { %>
+          <div class="four wide column">
+            <strong><%= comment.author.username %></strong> -
+          </div>
+          <div class="ten wide column">
+            <p><%= comment.text %></p>
+          </div>
+        <% } %>
       </div>
       <% }) %>
     </div>
