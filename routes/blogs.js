@@ -11,10 +11,11 @@ router.get("/", function(req, res) {
     } else {
       res.render("blogs/index", {blogs: blogs});
     }
-  })
+  });
 });
 
 // NEW BLOG Route
+
 router.get("/new", middleware.isLoggedIn, function(req, res) {
   res.render("blogs/new");
 });
